@@ -1,6 +1,6 @@
 {
   "name": "@sylchi/reusable-components",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Reusable component library",
   "private": false,
   "main": "dist/index.js",
@@ -46,7 +46,7 @@
           "corejs": "3.29.1"
         }
       ],
-      "@babel/preset-react",
+      [ "@babel/preset-react", {"runtime": "automatic"}],
       [
         "@babel/preset-typescript",
         {
