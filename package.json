@@ -1,11 +1,11 @@
 {
   "name": "@sylchi/reusable-components",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Reusable component library",
   "private": false,
   "source": "src/react/index.ts",
-  "main": "dist/lib.cjs.js",
-  "module": "dist/lib.esm.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/types.d.ts",
   "repository": {
     "type": "git",
@@ -16,6 +16,17 @@
     "build": "parcel build"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
+  "targets": {
+    "main": {
+      "context": "node",
+      "engines": {"node": ">= 14"},
+      "isLibrary": true
+    },
+    "module": {
+      "context": "browser",
+      "isLibrary": true
+    }
+  },
   "engines": {
     "node": ">= 14"
   },
@@ -34,10 +45,5 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.0.3"
-  },
-  "alias": {
-    "react": {
-      "global": "React"
-    }
   }
 }
