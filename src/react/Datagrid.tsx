@@ -2,11 +2,20 @@
 import { useState, useEffect } from 'react'
 
 type Column = {
-  title: string,
-  field?: string,
-  format?: Function,
-  sortable?: boolean,
+  title: string
+  field?: string
+  format?: Function
+  sortable?: boolean
   sortValue?: Function
+}
+
+type Classes = {
+  rowClasses?: string
+  headerClasses?: string
+  cellClasses?: string
+  containerClasses?: string
+  oddRowClasses?: string
+  evenRowClasses?: string
 }
 
 const SortIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -22,7 +31,7 @@ const SortAsc = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBo
 </svg>
 
 
-export default function DataGrid({ columns, rows, sortCallBack }: { columns: Array<Column>, rows: Array<any>, sortCallBack?: Function }) {
+export default function DataGrid({ columns, rows, sortCallBack, classes }: { columns: Array<Column>, rows: Array<any>, sortCallBack?: Function, classes?: Classes }) {
   const [ sortBy, setSortBy ] = useState<string>('');
   const [ sortOrder, setSortOrder ] = useState('');
 
@@ -69,13 +78,15 @@ export default function DataGrid({ columns, rows, sortCallBack }: { columns: Arr
   }
   
   return <div style={{
-    display: 'grid',
-    position: 'relative',
-    gridAutoFlow: 'row',
-    fontSize: '14px'
-  }}>
+      display: 'grid',
+      position: 'relative',
+      gridAutoFlow: 'row',
+      fontSize: '14px'
+    }}
+    className={`__datagrid__container ${classes?.containerClasses}`}
+  >
     {columns.map((column, index) => <div key={index} 
-      className={`shadow pb-2 font-bold ${column.sortable && 'cursor-pointer'} pl-2 flex flex-row items-center`}
+      className={`shadow pb-2 font-bold ${column.sortable && 'cursor-pointer'} pl-2 flex flex-row items-center __datagrid__columnheader ${classes?.headerClasses} bg-white dark:bg-darkBlue`}
       onClick={() => {
         if(column.sortable) {
           setSortOrder(sortOrder === 'asc' && sortBy === column.field ? 'desc' : 'asc');
@@ -87,7 +98,6 @@ export default function DataGrid({ columns, rows, sortCallBack }: { columns: Arr
         gridRow: 1,
         position: 'sticky',
         alignSelf: 'start',
-        background: 'white',
         top: 0
       }}
     >{column.title}
@@ -98,10 +108,7 @@ export default function DataGrid({ columns, rows, sortCallBack }: { columns: Arr
 
     {Array.from(Array(rows.length * columns.length).keys()).map((cellIndex) => <div
       key={cellIndex}
-      className="py-2 px-1"
-      style={{
-        background: Math.floor((cellIndex) / columns.length) % 2 === 0 ? '#f1f3f5' : 'white' 
-      }}
+      className={`py-2 px-1 ${classes?.cellClasses} ${ Math.floor((cellIndex) / columns.length) % 2 === 0 ? classes?.evenRowClasses || 'bg-gray-200 dark:bg-slate-800' : classes?.oddRowClasses ||'bg-white dark:bg-slate-700' } __datagrid__cell ${ Math.floor((cellIndex) / columns.length) % 2 === 0 ? ' __datagrid__row__even' : '__datagrid__row__odd' }`}
     >
       { getCellValue(cellIndex) }
     </div>
