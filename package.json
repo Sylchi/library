@@ -1,11 +1,11 @@
 {
   "name": "@sylchi/reusable-components",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Reusable component library",
   "private": false,
-  "source": "src/index.ts",
-  "main": "dist/cjs.js",
-  "module": "dist/module.js",
+  "source": "src/react/index.ts",
+  "main": "dist/lib.cjs.js",
+  "module": "dist/lib.esm.js",
   "types": "dist/types.d.ts",
   "repository": {
     "type": "git",
@@ -28,10 +28,16 @@
   "devDependencies": {
     "@parcel/packager-ts": "^2.8.3",
     "@parcel/transformer-typescript-types": "^2.8.3",
+    "@types/react": "^18.0.31",
+    "@types/react-dom": "^18.0.11",
     "parcel": "^2.8.3",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.3"
   },
   "alias": {
-    "react": { "global": "React" }
+    "react": {
+      "global": "React"
+    }
   }
 }
