@@ -64,7 +64,7 @@ export default function DataGrid({ columns, rows, sortCallBack }: { columns: Arr
     const field = column.field;
     const format = column.format;
     //@ts-ignore
-    const content = format ? format(row[field], row) : JSON.stringify(row[field]);
+    const content = format ? format(row[field], row) : row[field]?.toString();
     return <>{content}</>
   }
   
