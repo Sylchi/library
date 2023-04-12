@@ -1,6 +1,6 @@
 {
   "name": "@sylchi/reusable-components",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Reusable component library",
   "private": false,
   "source": "src/react/index.ts",
@@ -20,7 +20,9 @@
   "targets": {
     "main": {
       "context": "node",
-      "engines": { "node": ">= 14" },
+      "engines": {
+        "node": ">= 14"
+      },
       "isLibrary": true
     },
     "module": {
@@ -35,13 +37,16 @@
   "author": "Ken Kauksi",
   "license": "ISC",
   "peerDependencies": {
-    "react": ">=17"
+    "react": ">=17",
+    "@keystone-6/core": "^5.1.0"
   },
   "devDependencies": {
+    "@keystone-6/core": "^5.1.0",
     "@parcel/packager-ts": "^2.8.3",
     "@parcel/transformer-typescript-types": "^2.8.3",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
+    "json-schema-library": "^7.4.7",
     "parcel": "^2.8.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

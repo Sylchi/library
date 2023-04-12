@@ -45,8 +45,8 @@ export default function DataGrid({ columns, rows, sortCallBack, classes }: { col
         let bValue = b[sortBy];
         const column = columns.find(column => column.field === sortBy);
         if(typeof column?.sortValue === 'function'){
-          aValue = column.sortValue(aValue);
-          bValue = column.sortValue(bValue);
+          aValue = column.sortValue(aValue, a);
+          bValue = column.sortValue(bValue, b);
         }
         if (aValue < bValue) {
           result = -1;
