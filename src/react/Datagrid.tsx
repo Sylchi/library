@@ -60,7 +60,7 @@ export default function DataGrid({ columns, rows, sortCallBack, classes }: { col
         return result;
       })
     }
-  }, [sortBy, sortOrder])
+  }, [sortBy, sortOrder, rows])
 
 
   const totalCells = rows.length * columns.length;
