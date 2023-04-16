@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ReactNode } from 'react'
 
 type Column = {
   title: string
@@ -31,7 +31,7 @@ const SortAsc = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBo
 </svg>
 
 
-export default function DataGrid({ columns, rows, sortCallBack, classes }: { columns: Array<Column>, rows: Array<any>, sortCallBack?: Function, classes?: Classes }) {
+export default function DataGrid({ columns, rows, sortCallBack, classes, children }: { columns: Array<Column>, rows: Array<any>, sortCallBack?: Function, classes?: Classes, children?: ReactNode }) {
   const [ sortBy, setSortBy ] = useState<string>('');
   const [ sortOrder, setSortOrder ] = useState('');
 
@@ -113,5 +113,6 @@ export default function DataGrid({ columns, rows, sortCallBack, classes }: { col
       { getCellValue(cellIndex) }
     </div>
     )}
+    {children}
   </div>
 }
