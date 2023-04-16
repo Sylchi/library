@@ -1,6 +1,6 @@
 {
   "name": "@sylchi/reusable-components",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Reusable component library",
   "private": false,
   "source": "src/index.ts",
