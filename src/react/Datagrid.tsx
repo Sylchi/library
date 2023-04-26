@@ -16,6 +16,16 @@ type Classes = {
   containerClasses?: string
   oddRowClasses?: string
   evenRowClasses?: string
+
+}
+
+type DataGridProps = {
+  columns: Array<Column>
+  rows: Array<any>
+  sortCallBack?: Function
+  classes?: Classes
+  children?: ReactNode
+  cards?: Boolean
 }
 
 const SortIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -31,7 +41,7 @@ const SortAsc = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBo
 </svg>
 
 
-export default function DataGrid({ columns, rows, sortCallBack, classes, children }: { columns: Array<Column>, rows: Array<any>, sortCallBack?: Function, classes?: Classes, children?: ReactNode }) {
+export function DataGrid({ columns, rows, sortCallBack, classes, children, cards }: DataGridProps) {
   const [ sortBy, setSortBy ] = useState<string>('');
   const [ sortOrder, setSortOrder ] = useState('');
 
@@ -77,7 +87,14 @@ export default function DataGrid({ columns, rows, sortCallBack, classes, childre
     return <>{content}</>
   }
   
-  return <div style={{
+  return cards ? 
+    <div>
+      {rows.map((row, rowIndex) => <div key={rowIndex} className={`${classes?.rowClasses} ${rowIndex % 2 === 0 ? classes?.evenRowClasses || 'bg-gray-200 dark:bg-slate-800' : classes?.oddRowClasses ||'bg-white dark:bg-slate-700' } `}>
+        {columns.map((column, columnIndex) => <div className="flex flex-row items-center justify-between" key={columnIndex}><div className={classes?.headerClasses}>{column.title}</div><div className={classes?.cellClasses}>{column.format ? column.format(row[column.field], row) : row[column.field]?.toString()}</div></div>)}
+      </div>)}
+    </div>
+    :
+    <div style={{
       display: 'grid',
       position: 'relative',
       gridAutoFlow: 'row',
@@ -116,3 +133,5 @@ export default function DataGrid({ columns, rows, sortCallBack, classes, childre
     {children}
   </div>
 }
+
+export default DataGrid
