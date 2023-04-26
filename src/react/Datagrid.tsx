@@ -88,7 +88,7 @@ export function DataGrid({ columns, rows, sortCallBack, classes, children, cards
   }
   
   return cards ? 
-    <div>
+    <div className={classes?.containerClasses}>
       {rows.map((row, rowIndex) => <div key={rowIndex} className={`${classes?.rowClasses} ${rowIndex % 2 === 0 ? classes?.evenRowClasses || 'bg-gray-200 dark:bg-slate-800' : classes?.oddRowClasses ||'bg-white dark:bg-slate-700' } `}>
         {columns.map((column, columnIndex) => <div className="flex flex-row items-center justify-between" key={columnIndex}><div className={classes?.headerClasses}>{column.title}</div><div className={classes?.cellClasses}>{column.format ? column.format(row[column.field], row) : row[column.field]?.toString()}</div></div>)}
       </div>)}
