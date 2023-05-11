@@ -83,7 +83,7 @@ export function DataGrid({ columns, rows, sortCallBack, classes, children, cards
     const field = column.field;
     const format = column.format;
     //@ts-ignore
-    const content = format ? format(row[field], row) : row[field]?.toString();
+    const content = format ? format(row[field], row) : row[field];
     return content
   }
   
@@ -126,8 +126,9 @@ export function DataGrid({ columns, rows, sortCallBack, classes, children, cards
     {Array.from(Array(rows.length * columns.length).keys()).map((cellIndex) => <div
       key={cellIndex}
       className={`py-2 px-1 ${classes?.cellClasses} ${ Math.floor((cellIndex) / columns.length) % 2 === 0 ? classes?.evenRowClasses || 'bg-gray-200 dark:bg-slate-800' : classes?.oddRowClasses ||'bg-white dark:bg-slate-700' } __datagrid__cell ${ Math.floor((cellIndex) / columns.length) % 2 === 0 ? ' __datagrid__row__even' : '__datagrid__row__odd' }`}
-      dangerouslySetInnerHTML={{ __html: getCellValue(cellIndex) }}
-    />
+    >
+      {getCellValue(cellIndex)}
+    </div>
     )}
     {children}
   </div>
