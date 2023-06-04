@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect, ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 type Column = {
   title: string
@@ -103,7 +104,7 @@ export function DataGrid({ columns, rows, sortCallBack, classes, children, cards
     className={`__datagrid__container ${classes?.containerClasses}`}
   >
     {columns.map((column, index) => <div key={index} 
-      className={`shadow pb-2 font-bold ${column.sortable && 'cursor-pointer'} pl-2 flex flex-row items-center __datagrid__columnheader ${classes?.headerClasses} bg-white dark:bg-darkBlue`}
+      className={twMerge(`shadow pb-2 font-bold ${column.sortable && 'cursor-pointer'} pl-2 flex flex-row items-center __datagrid__columnheader bg-white dark:bg-darkBlue`, classes?.headerClasses)}
       onClick={() => {
         if(column.sortable) {
           setSortOrder(sortOrder === 'asc' && sortBy === column.field ? 'desc' : 'asc');
@@ -125,7 +126,15 @@ export function DataGrid({ columns, rows, sortCallBack, classes, children, cards
 
     {Array.from(Array(rows.length * columns.length).keys()).map((cellIndex) => <div
       key={cellIndex}
-      className={`py-2 px-1 ${classes?.cellClasses} ${ Math.floor((cellIndex) / columns.length) % 2 === 0 ? classes?.evenRowClasses || 'bg-gray-200 dark:bg-slate-800' : classes?.oddRowClasses ||'bg-white dark:bg-slate-700' } __datagrid__cell ${ Math.floor((cellIndex) / columns.length) % 2 === 0 ? ' __datagrid__row__even' : '__datagrid__row__odd' }`}
+      className={
+        twMerge(
+        twMerge(`__datagrid__cell py-2 px-1`, classes?.cellClasses ),
+        Math.floor((cellIndex) / columns.length) % 2 === 0 ? 
+          twMerge('__datagrid__row__even bg-gray-200 dark:bg-slate-800', classes?.evenRowClasses) 
+          : 
+          twMerge('__datagrid__row__odd bg-white dark:bg-slate-700', classes?.oddRowClasses)
+        )
+      }
     >
       {getCellValue(cellIndex)}
     </div>
